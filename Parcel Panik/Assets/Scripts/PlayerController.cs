@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 10;
     [SerializeField] private bool isJumping = false;
 
+    private Animator anim;
+    
     private bool jump = false;
 
     private SpriteRenderer sprite;
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -43,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (jump) {
+            anim.SetTrigger("Jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             Debug.Log("Force applied");
             jump = false;
