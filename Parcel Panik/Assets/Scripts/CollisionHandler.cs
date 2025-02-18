@@ -10,17 +10,29 @@ using UnityEngine.Serialization;
 public class CollisionHandler : MonoBehaviour
 {
    private ObjectInfo _objectInfo;
+   [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private void Start()
     {
         _objectInfo = GetComponent<ObjectInfo>(); // Find the component 
+        _spriteRenderer.enabled = false;
     }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (MoneyHandler.Instance == null) return; // Return if there is no instance 
-        
-        MoneyHandler.Instance.OnPackageDelivered?.Invoke(_objectInfo); // Fire the event 
-        GetComponent<Collider2D>().enabled = false; // Disable collider to avoid multi-counting 
+        if (MoneyHandler.Instance == null) return;
+
+        if (!other.gameObject.CompareTag("Player")) return;
+        MoneyHandler.Instance.OnPackageDelivered?.Invoke(_objectInfo);
+        _spriteRenderer.enabled = true;
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.gameObject.CompareTag("Player")) return;
+        _spriteRenderer.enabled = false;
+    }
+    
+    
+
 }

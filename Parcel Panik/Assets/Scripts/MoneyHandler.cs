@@ -38,7 +38,7 @@ public class MoneyHandler : MonoBehaviour
     private static void ChangePay(ObjectInfo specifics)
     {
         _totalMoney += specifics.Amount;
-        Debug.Log(_totalMoney);
+        // Debug.Log(_totalMoney);
     }
 }
 
