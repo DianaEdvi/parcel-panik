@@ -18,6 +18,13 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     
     private bool jump = false;
+    private bool cutJump = false;
+
+    private float coyoteTime = 0.1f;
+    private float coyoteTimeCounter;
+
+    private float jumpBufferTime = 0.1f;
+    private float jumpBufferTimer;
 
     private SpriteRenderer sprite;
 
@@ -32,32 +39,67 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        //for checking coyotetime when grounded
+        if (!isJumping)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
         horizontal = Input.GetAxis("Horizontal");
 
         horizontalSpeed = rb.velocity.x;
         verticalSpeed = rb.velocity.y;
 
-        if (Input.GetButtonDown("Jump") && !isJumping)
+        //for checking the jump buffer
+        if (Input.GetButtonDown("Jump"))
         {
+            jumpBufferTimer = jumpBufferTime;
+        }
+        else {
+            jumpBufferTimer -= Time.deltaTime;
+        }
+
+        //Here is the actual jump function
+        if (jumpBufferTimer > 0 && coyoteTimeCounter > 0f)
+        {
+            jumpBufferTimer = 0f;
             jump = true;
+        }
+
+        //for cutting the jump at apex on button release
+        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)
+        {
+            coyoteTimeCounter = 0f;
+            cutJump = true;
         }
     }
 
     private void FixedUpdate()
     {
         if (jump) {
+
             anim.SetTrigger("Jump");
+
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            Debug.Log("Force applied");
+
             jump = false;
         }
 
+        if (cutJump)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            cutJump = false;
+        }
+
         //flipping character based on input
-        if (rb.velocity.x >= 0)
+        if (horizontal > 0)
         {
             sprite.flipX = false;
         }
-        else if (rb.velocity.x < 0){
+        else if (horizontal < 0){
             sprite.flipX = true;
         }
 
@@ -70,8 +112,7 @@ public class PlayerController : MonoBehaviour
 
             rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
 
-        }
-        else {
+        } else {
 
             //check if braking
             if (horizontal > 0 && rb.velocity.x < 0)
