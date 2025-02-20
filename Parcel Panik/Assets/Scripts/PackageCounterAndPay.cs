@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PackageCounter : MonoBehaviour
+public class PackageCounterAndPay : MonoBehaviour
 {
+    [SerializeField] private static int _totalMoney; // money money money 
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         var events = GameObject.Find("EventHandler").GetComponent<Events>();
         events.OnPackageDelivered += IncrementPackageCounter;
         
         TotalPackages = GameObject.FindGameObjectsWithTag("House").Length; 
+        
+        events.OnPackageDelivered += ChangePay; // Subscribe to the event once (event listener)
+        events.OnUndesirableHit += ChangePay;
 
     }
 
@@ -21,6 +26,16 @@ public class PackageCounter : MonoBehaviour
         {
             NumPackages++;
         }
+    }
+    
+    
+    /**
+     * Increment/decrement the total pay depending on which object was used
+     */
+    private static void ChangePay(ObjectInfo specifics)
+    {
+        _totalMoney += specifics.Amount;
+        Debug.Log(_totalMoney);
     }
     
     // Getters and setters
