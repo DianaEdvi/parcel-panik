@@ -7,26 +7,49 @@ using UnityEngine.Serialization;
 public class GameUI : MonoBehaviour
 {
     
-    [SerializeField] private TMP_Text text;
+    [SerializeField] private TMP_Text numPackagesText;
+    [SerializeField] private TMP_Text timerText;
+    [SerializeField] private TMP_Text taskText;
     [SerializeField] private Vector3 textPositionRelativeToPlayer;
     private GameObject _player;
     private PackageCounterAndPay _packageCounterAndPay;
+    private Timer _timer;
     
     // Start is called before the first frame update
     private void Start()
     {
         // Find objects   
         _player = GameObject.FindGameObjectWithTag("Player");
-        text = GetComponentInChildren<TMP_Text>(); // Might have to change if more text gets put on screen 
         _packageCounterAndPay = GameObject.Find("GameState").GetComponent<PackageCounterAndPay>();
+        _timer = GameObject.Find("GameState").GetComponent<Timer>();
     }
 
     // Update is called once per frame
     private void Update()
     {
+        UpdateNumPackagesText();
+        UpdateTimerText();
+    }
+
+    /**
+     * Displays the text counting the number of packages above the player 
+     */
+    private void UpdateNumPackagesText()
+    {
         // set text and position
-        text.text = "" + _packageCounterAndPay.NumPackages + "/" + _packageCounterAndPay.TotalPackages;
+        numPackagesText.text = "" + _packageCounterAndPay.NumPackages + "/" + _packageCounterAndPay.TotalPackages;
         var playerPosition = _player.gameObject.transform.position;
-        text.gameObject.transform.position = new Vector3(playerPosition.x + textPositionRelativeToPlayer.x, playerPosition.y + textPositionRelativeToPlayer.y, playerPosition.z + textPositionRelativeToPlayer.z);
+        numPackagesText.gameObject.transform.position = new Vector3(playerPosition.x + textPositionRelativeToPlayer.x, playerPosition.y + textPositionRelativeToPlayer.y, playerPosition.z + textPositionRelativeToPlayer.z);
+    }
+
+    /**
+     * Displays the time left to deliver packages
+     */
+    private void UpdateTimerText()
+    {
+        var totalTime = _timer.TimeLeft;
+        var seconds = Mathf.FloorToInt(totalTime);
+        var milliseconds = Mathf.FloorToInt((totalTime - seconds) * 1000);
+        timerText.text = seconds + ":" + milliseconds.ToString("00");
     }
 }

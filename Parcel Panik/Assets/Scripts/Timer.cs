@@ -8,24 +8,22 @@ public class Timer : MonoBehaviour
 {
     private Coroutine _timerCoroutine;
     [SerializeField, Tooltip("In seconds")] private float timeToDeliver;
-    
-    // Start is called before the first frame update
-    void Start()
+    private float _maxTime;
+
+    private void Start()
     {
-        _timerCoroutine = StartCoroutine(GameTimer());
+        _maxTime = timeToDeliver; // save max time for clamp 
     }
 
-    private IEnumerator GameTimer()
+    private void Update()
     {
-        while (timeToDeliver > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            timeToDeliver--;
-        }
-
-        Debug.Log("passed");
+        if (timeToDeliver <= 0) return; //Stop subtracting if below 0
+        
+        timeToDeliver -= Time.deltaTime; // Timer 
+        timeToDeliver = Mathf.Clamp(timeToDeliver, 0, _maxTime); // Clamp to 0 
     }
 
+    // Getter/setter
     public float TimeLeft
     {
         get => timeToDeliver;
