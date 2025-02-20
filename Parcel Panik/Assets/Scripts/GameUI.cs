@@ -18,7 +18,7 @@ public class GameUI : MonoBehaviour
         // Find objects   
         _player = GameObject.FindGameObjectWithTag("Player");
         text = GetComponentInChildren<TMP_Text>(); // Might have to change if more text gets put on screen 
-        _packageCounterAndPay = GameObject.Find("PackageCounter").GetComponent<PackageCounterAndPay>();
+        _packageCounterAndPay = GameObject.Find("GameState").GetComponent<PackageCounterAndPay>();
     }
 
     // Update is called once per frame
