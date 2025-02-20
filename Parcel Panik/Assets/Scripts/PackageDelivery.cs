@@ -30,6 +30,11 @@ public class PackageDelivery : MonoBehaviour
         if (Events.Instance == null || !other.gameObject.CompareTag("Player")) return;
 
         _isWithinBounds = true; // Set flag to allow key press detection
+
+        // If the current object is the post office, fire the event 
+        if (!_objectInfo.IsPostOffice) return;
+        var events = GameObject.Find("EventHandler").GetComponent<Events>();
+        events.OnPostOfficeCollision?.Invoke(_objectInfo);
     }
 
     // Check if player left 
