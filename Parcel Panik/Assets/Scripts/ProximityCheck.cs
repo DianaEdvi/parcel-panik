@@ -11,8 +11,8 @@ public class ProximityCheck : MonoBehaviour
    private void Start()
    {
       // Find the event and subscribe to it 
-      var moneyHandler = GameObject.Find("MoneyTracker").GetComponent<MoneyHandler>();
-      moneyHandler.OnPackageDelivered += PackageDelivered;
+      var eventHandler = GameObject.Find("EventHandler").GetComponent<Events>();
+      eventHandler.OnPackageDelivered += PackageDelivered;
 
       // Find sprite renderer and object info 
       _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -48,8 +48,7 @@ public class ProximityCheck : MonoBehaviour
    private void PackageDelivered(ObjectInfo obj)
    {
       if (obj.ObjectID != _objectInfo.ObjectID) return; // Check if the delivered package was for this object
-      
-      _packageDelivered = true;
       _spriteRenderer.enabled = false;
+      _packageDelivered = true;
    }
 }

@@ -8,13 +8,15 @@ using UnityEngine;
  */
 public class MoneyHandler : MonoBehaviour
 {
-    public static MoneyHandler Instance { get; private set; } // Make only one instance of the money tracker (avoid accidental duplicates) 
+    private static MoneyHandler Instance { get; set; } // Make only one instance of the money tracker (avoid accidental duplicates) 
 
-    public Action<ObjectInfo> OnPackageDelivered; // Define event 
     [SerializeField] private static int _totalMoney; // money money money 
+    private Events _eventHandler;
 
     private void Awake()
     {
+        _eventHandler = GameObject.Find("EventHandler").GetComponent<Events>();
+        
         // Delete any duplicate instances of the money handler 
         if (Instance == null)
         {
@@ -26,10 +28,15 @@ public class MoneyHandler : MonoBehaviour
         }
 
         // Subscribe to the event 
-        OnPackageDelivered += ChangePay; // Subscribe to the event once (event listener)
+        _eventHandler.OnPackageDelivered += ChangePay; // Subscribe to the event once (event listener)
         // Make a PlayAudio listener in AudioManager and pass in collisionInfo as arg 
         // Make PlayAnimation listener in another script (DeliveryAnimationManager? idk how we want to do that yet)  
         // Make Game Over listener that checks if isPostOffice and if all packages were delivered
+    }
+
+    private void Start()
+    {
+        _eventHandler.OnUndesirableHit += ChangePay;
     }
 
     /**

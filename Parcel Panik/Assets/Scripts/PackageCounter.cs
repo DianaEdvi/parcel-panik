@@ -8,8 +8,8 @@ public class PackageCounter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var moneyHandler = GameObject.Find("MoneyTracker").GetComponent<MoneyHandler>();
-        moneyHandler.OnPackageDelivered += IncrementPackageCounter;
+        var events = GameObject.Find("EventHandler").GetComponent<Events>();
+        events.OnPackageDelivered += IncrementPackageCounter;
         
         TotalPackages = GameObject.FindGameObjectsWithTag("House").Length; 
 
