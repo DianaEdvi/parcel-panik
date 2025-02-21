@@ -20,8 +20,6 @@ public class PackageCounterAndPay : MonoBehaviour
         _eventHandler.OnPackageDelivered += IncrementPackageCounter;
         _eventHandler.OnPackageDelivered += ChangePay; // Subscribe to the event once (event listener)
         _eventHandler.OnUndesirableHit += ChangePay;
-        _eventHandler.OnPostOfficeCollision += CheckGameOver;
-
     }
     
     private void IncrementPackageCounter(ObjectInfo objectInfo)
@@ -41,28 +39,6 @@ public class PackageCounterAndPay : MonoBehaviour
         _totalMoney += specifics.Amount;
         Debug.Log(_totalMoney);
     }
-
-    /**
-     * Checks if the player has won or lost  
-     */
-    private void CheckGameOver(ObjectInfo obj)
-    {
-        
-        if (NumPackages == TotalPackages)
-        {
-            _winGame = true; // temp
-            _eventHandler.OnGameOver?.Invoke(true);
-        }
-        else // if timer runs out 
-        {
-            _eventHandler.OnGameOver?.Invoke(false);
-            _winGame = false; // temp
-        }
-
-        Debug.Log(_winGame);
-        
-    }
-    
     
     // Getters and setters
     public int NumPackages { get; private set; }
