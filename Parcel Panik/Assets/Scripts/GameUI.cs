@@ -14,6 +14,7 @@ public class GameUI : MonoBehaviour
     private GameObject _player;
     private PackageCounterAndPay _packageCounterAndPay;
     private Timer _timer;
+    [SerializeField] private string[] tasks;
     
     // Start is called before the first frame update
     private void Start()
@@ -22,6 +23,7 @@ public class GameUI : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _packageCounterAndPay = GameObject.Find("GameState").GetComponent<PackageCounterAndPay>();
         _timer = GameObject.Find("GameState").GetComponent<Timer>();
+        // taskText = GameObject.Find("Tasks").GetComponentInChildren<TMP_Text>();
     }
 
     // Update is called once per frame
@@ -29,6 +31,7 @@ public class GameUI : MonoBehaviour
     {
         UpdateNumPackagesText();
         UpdateTimerText();
+        UpdateTasksText();
     }
 
     /**
@@ -52,4 +55,13 @@ public class GameUI : MonoBehaviour
         var milliseconds = Mathf.FloorToInt((totalTime - seconds) * 1000);
         timerText.text = seconds + ":" + milliseconds.ToString("00");
     }
+
+    /**
+     * Displays the current task
+     */
+    private void UpdateTasksText()
+    {
+        taskText.text = _packageCounterAndPay.NumPackages == _packageCounterAndPay.TotalPackages ? tasks[1] : tasks[0];
+    }
+    
 }
