@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
@@ -15,11 +17,16 @@ public class GameOver : MonoBehaviour
         _timer = GameObject.Find("GameState").GetComponent<Timer>();
         _eventHandler = GameObject.Find("EventHandler").GetComponent<Events>();
         _eventHandler.OnPostOfficeCollision += CheckGameOver;
+        _eventHandler.OnGameOver += LoadCredits;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_timer.TimeLeft == 0) // and already called 
+        {
+            _eventHandler.OnGameOver?.Invoke();
+        }
         
     }
     
@@ -31,14 +38,13 @@ public class GameOver : MonoBehaviour
         
         if (_packageCounterAndPay.NumPackages == _packageCounterAndPay.TotalPackages)
         {
-            _eventHandler.OnGameOver?.Invoke(true);
-            Debug.Log("true");
+            _eventHandler.OnGameOver?.Invoke();
         }
-        else if (_timer.TimeLeft == 0) // and already called 
-        {
-            _eventHandler.OnGameOver?.Invoke(false);
-            Debug.Log("false");
-        }
+    }
+
+    private void LoadCredits()
+    {
+        SceneManager.LoadScene("Credits");
     }
 
 }
