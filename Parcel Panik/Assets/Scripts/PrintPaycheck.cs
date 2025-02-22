@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class PrintPaycheck : MonoBehaviour
 {
     private Events _eventHandler;
-    private List<string> names;
-    private TMP_Text[] texts; 
+    [SerializeField] private List<string> names;
+    private List<TMP_Text> texts; 
     private TMP_Text text;
     private PackageCounterAndPay _packageCounterAndPay;
 
@@ -27,7 +27,9 @@ public class PrintPaycheck : MonoBehaviour
         names = new List<string>();
         _eventHandler.OnPackageDelivered += StoreNames;
         _eventHandler.OnUndesirableHit += StoreNames;
-        // _eventHandler.OnGameOver += PrintInfo;
+        _eventHandler.OnGameOver += PrintInfo;
+
+        texts = new List<TMP_Text>();
 
     }
 
@@ -46,25 +48,15 @@ public class PrintPaycheck : MonoBehaviour
 
     private void PrintInfo()
     {
-        // Create a new Canvas if one doesn't exist
-        GameObject canvasObj = new GameObject("CreditsCanvas");
-        Canvas canvas = canvasObj.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay; // Set to overlay so it's visible
-        canvasObj.AddComponent<CanvasScaler>(); // Optional: Scale UI properly
-        canvasObj.AddComponent<GraphicRaycaster>(); // Optional: Enable UI interactions
-
-        texts = new TMP_Text[names.Count];
         var namesArr = names.ToArray();
 
-        for (int i = 0; i < namesArr.Length; i++)
-        {
-            TMP_Text newText = Instantiate(text, canvasObj.transform); // Attach to new Canvas
-            newText.text = namesArr[i]; // Assign text
-            texts[i] = newText; // Store reference
-            Debug.Log(texts[i]);
-        }
-
     }
+    
+    public List<string> GetNames()
+    {
+        return new List<string>(names); // Returning a copy to prevent external modification
+    }
+
 
 
 
