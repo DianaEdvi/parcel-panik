@@ -51,4 +51,6 @@ public class ProximityCheck : MonoBehaviour
       _spriteRenderer.enabled = false;
       _packageDelivered = true;
    }
+   
+   
 }

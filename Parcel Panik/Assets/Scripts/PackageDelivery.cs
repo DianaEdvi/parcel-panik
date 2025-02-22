@@ -8,6 +8,7 @@ public class PackageDelivery : MonoBehaviour
     private ObjectInfo _objectInfo;
     private bool _isWithinBounds;
     private bool _packageDelivered;
+    [SerializeField] private SpriteRenderer mailSprite;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class PackageDelivery : MonoBehaviour
         if (!_isWithinBounds || !Input.GetKeyDown(KeyCode.Return) || _packageDelivered) return;
         Events.Instance.OnPackageDelivered?.Invoke(_objectInfo); // Fire event
         _packageDelivered = true;
+        mailSprite.enabled = false;
     }
 
     /**
