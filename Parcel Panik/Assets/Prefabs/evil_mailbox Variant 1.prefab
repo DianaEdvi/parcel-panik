@@ -80,6 +80,10 @@ PrefabInstance:
       propertyPath: name
       value: Slinky Mailbox
       objectReference: {fileID: 0}
+    - target: {fileID: 7306934961621959976, guid: 252670ee4efd28840b0ba83cda9f0a3a, type: 3}
+      propertyPath: amount
+      value: -30.17
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

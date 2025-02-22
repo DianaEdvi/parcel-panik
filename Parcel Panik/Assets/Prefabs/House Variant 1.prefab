@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: name
       value: Squish House
       objectReference: {fileID: 0}
+    - target: {fileID: 516199425086744180, guid: 5ef6e6120a400a9499029f66c77931dc, type: 3}
+      propertyPath: amount
+      value: 66.24
+      objectReference: {fileID: 0}
     - target: {fileID: 885575093541840170, guid: 5ef6e6120a400a9499029f66c77931dc, type: 3}
       propertyPath: m_Sprite
       value: 

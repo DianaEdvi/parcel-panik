@@ -6,7 +6,9 @@ using UnityEngine.Rendering;
 
 public class PackageCounterAndPay : MonoBehaviour
 {
-    [SerializeField] private static int _totalMoney; // money money money 
+    [SerializeField] private static float _totalMoney; // money money money 
+
+
     private Events _eventHandler;
     private bool _winGame;
 
@@ -43,4 +45,6 @@ public class PackageCounterAndPay : MonoBehaviour
     // Getters and setters
     public int NumPackages { get; private set; }
     public int TotalPackages { get; private set; }
+    public static float TotalMoney => _totalMoney;
+
 }

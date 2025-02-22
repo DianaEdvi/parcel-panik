@@ -27,7 +27,6 @@ public class PrintPaycheck : MonoBehaviour
         names = new List<string>();
         _eventHandler.OnPackageDelivered += StoreNames;
         _eventHandler.OnUndesirableHit += StoreNames;
-        _eventHandler.OnGameOver += PrintInfo;
 
         texts = new List<TMP_Text>();
 
@@ -43,22 +42,11 @@ public class PrintPaycheck : MonoBehaviour
 
     private void StoreNames(ObjectInfo obj)
     {
-        names.Add(obj.Name);
-    }
-
-    private void PrintInfo()
-    {
-        var namesArr = names.ToArray();
-
+        names.Add(obj.Name + ": " + obj.Amount);
     }
     
     public List<string> GetNames()
     {
         return new List<string>(names); // Returning a copy to prevent external modification
     }
-
-
-
-
-
 }

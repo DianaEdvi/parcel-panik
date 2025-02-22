@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 public class ObjectInfo : MonoBehaviour
 {
     [SerializeField] private string name;
-    [SerializeField] private int amount;
+    [SerializeField] private float amount;
     [SerializeField] private bool isPostOffice;
     // can include other variables like audio clips, animations, etc 
 
@@ -27,7 +27,7 @@ public class ObjectInfo : MonoBehaviour
         get => name;
         set => name = value;
     }
-    public int Amount
+    public float Amount
     {
         get => amount;
         set => amount = value;

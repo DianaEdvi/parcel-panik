@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Gren House
-  amount: 50
+  amount: 50.19
   isPostOffice: 0
 --- !u!61 &7952214440820863338
 BoxCollider2D:

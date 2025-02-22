@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Pinky Mailbox
-  amount: -10
+  amount: -10.51
   isPostOffice: 0
 --- !u!114 &5676126316570646088
 MonoBehaviour:

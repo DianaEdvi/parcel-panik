@@ -424,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4673935446630902597, guid: d00e05eecce1b944eafd770d04c3584b, type: 3}
       propertyPath: timeToDeliver
-      value: 180
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8723572635861941944, guid: d00e05eecce1b944eafd770d04c3584b, type: 3}
       propertyPath: m_Name
@@ -7804,6 +7804,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8409117301059322017, guid: ba25fecc78be39f4fbbfeb00e93c4366, type: 3}
+      propertyPath: m_Size.x
+      value: 3.5137591
+      objectReference: {fileID: 0}
+    - target: {fileID: -8409117301059322017, guid: ba25fecc78be39f4fbbfeb00e93c4366, type: 3}
+      propertyPath: m_Size.y
+      value: 3.0884624
+      objectReference: {fileID: 0}
+    - target: {fileID: -8409117301059322017, guid: ba25fecc78be39f4fbbfeb00e93c4366, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.027283192
+      objectReference: {fileID: 0}
+    - target: {fileID: -8409117301059322017, guid: ba25fecc78be39f4fbbfeb00e93c4366, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.06547707
+      objectReference: {fileID: 0}
+    - target: {fileID: -8409117301059322017, guid: ba25fecc78be39f4fbbfeb00e93c4366, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 3.92
       objectReference: {fileID: 0}
@@ -10260,6 +10276,9 @@ SceneRoots:
   - {fileID: 2090716652}
   - {fileID: 927585904}
   - {fileID: 551462669}
+  - {fileID: 2096527879}
+  - {fileID: 44962516}
+  - {fileID: 1509523722}
   - {fileID: 839279655}
   - {fileID: 1499431650}
   - {fileID: 2088898676}
@@ -10280,9 +10299,6 @@ SceneRoots:
   - {fileID: 1818719882}
   - {fileID: 1350630547}
   - {fileID: 651767502}
-  - {fileID: 44962516}
-  - {fileID: 1509523722}
-  - {fileID: 2096527879}
   - {fileID: 1154443509}
   - {fileID: 1505398868}
   - {fileID: 1894416044}
