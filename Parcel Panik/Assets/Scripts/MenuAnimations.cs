@@ -1,17 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuAnimations : MonoBehaviour
 {
     [SerializeField] private GameObject waypointParent;
     [SerializeField] private GameObject startingWaypoint;
     [SerializeField] private float speed = 2f;
+    [SerializeField] private bool randomize;
+    [SerializeField] private GameObject mail;
     private Transform[] _waypoints;
-    private int _currentIndex = 0;    
+    private int _currentIndex = 0;
+    private Sprite[] mailSprites;
+    private Sprite currentMailSprite;
+    
     // Start is called before the first frame update
     void Start()
     {
+        if (randomize)
+        {
+            mailSprites = Resources.LoadAll<Sprite>("small_mail");
+            Randomize();
+
+        }
+        
+        
         // Store all way points in an array 
         var childCount = waypointParent.gameObject.transform.childCount;
         _waypoints = new Transform[childCount];
@@ -50,9 +65,31 @@ public class MenuAnimations : MonoBehaviour
         if (_currentIndex == _waypoints.Length - 1)
         {
             transform.position = _waypoints[0].transform.position;
+            _currentIndex = 0;
+            Randomize();
             return;
         }
         _currentIndex = (_currentIndex + 1);
+
+    }
+
+    private void Randomize()
+    {
+        if (mail == null)
+        {
+            return;
+        }
+
+        if (mailSprites == null || mailSprites.Length == 0)
+        {
+            return;
+        }
+
+        if (!randomize) return;
+        
+        var index = Random.Range(0, mailSprites.Length); // Random index
+        mail.GetComponent<Image>().sprite = mailSprites[index];
+
 
     }
 }
