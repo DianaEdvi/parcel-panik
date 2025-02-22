@@ -21,7 +21,6 @@ public class Timer : MonoBehaviour
         
         timeToDeliver -= Time.deltaTime; // Timer 
         timeToDeliver = Mathf.Clamp(timeToDeliver, 0, _maxTime); // Clamp to 0 
-        Debug.Log(timeToDeliver);
     }
 
     // Getter/setter
