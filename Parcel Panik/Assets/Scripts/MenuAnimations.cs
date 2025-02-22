@@ -12,20 +12,22 @@ public class MenuAnimations : MonoBehaviour
     [SerializeField] private bool randomize;
     [SerializeField] private GameObject mail;
     private Transform[] _waypoints;
-    private int _currentIndex = 0;
-    private Sprite[] mailSprites;
-    private Sprite currentMailSprite;
+    private int _currentIndex;
+    private Sprite[] _mailSprites;
+    private Sprite _currentMailSprite;
+    private float _startingYPosition;
     
     // Start is called before the first frame update
     void Start()
     {
         if (randomize)
         {
-            mailSprites = Resources.LoadAll<Sprite>("small_mail");
-            Randomize();
+            
+            _startingYPosition = waypointParent.transform.position.y;
+            _mailSprites = Resources.LoadAll<Sprite>("small_mail");
+            RandomizeMail();
 
         }
-        
         
         // Store all way points in an array 
         var childCount = waypointParent.gameObject.transform.childCount;
@@ -34,6 +36,10 @@ public class MenuAnimations : MonoBehaviour
         for (var i = 0; i < childCount; i++)
         {
             _waypoints[i] = waypointParent.gameObject.transform.GetChild(i).gameObject.transform;
+            if (startingWaypoint.transform == _waypoints[i])
+            {
+                _currentIndex = i;
+            }
         }
         
         // Set the initial position of the sprite 
@@ -64,31 +70,34 @@ public class MenuAnimations : MonoBehaviour
         // Reset position of sprite
         if (_currentIndex == _waypoints.Length - 1)
         {
+            RandomizeMail();
             transform.position = _waypoints[0].transform.position;
             _currentIndex = 0;
-            Randomize();
             return;
         }
         _currentIndex = (_currentIndex + 1);
 
     }
 
-    private void Randomize()
+    private void RandomizeMail()
     {
         if (mail == null)
         {
             return;
         }
 
-        if (mailSprites == null || mailSprites.Length == 0)
+        if (_mailSprites == null || _mailSprites.Length == 0)
         {
             return;
         }
 
         if (!randomize) return;
         
-        var index = Random.Range(0, mailSprites.Length); // Random index
-        mail.GetComponent<Image>().sprite = mailSprites[index];
+        var index = Random.Range(0, _mailSprites.Length); // Random index
+        var height = Random.Range(-10, 10);
+        waypointParent.GetComponent<Transform>().position = new Vector3(waypointParent.transform.position.x,
+            _startingYPosition + height, waypointParent.transform.position.z);
+        mail.GetComponent<Image>().sprite = _mailSprites[index];
 
 
     }
