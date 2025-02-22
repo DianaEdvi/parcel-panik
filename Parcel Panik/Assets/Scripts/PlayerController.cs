@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GameObject wheel1;
+    [SerializeField] private GameObject wheel2;
+
     [SerializeField] private float horizontalSpeed;
     [SerializeField] private float verticalSpeed;
 
@@ -94,13 +97,18 @@ public class PlayerController : MonoBehaviour
             cutJump = false;
         }
 
+        if (rb.velocity.x > 0 || rb.velocity.x < 0) {
+            wheel1.transform.Rotate(0, 0, Mathf.Abs(rb.velocity.x) * -100 * Time.deltaTime);
+            wheel2.transform.Rotate(0, 0, Mathf.Abs(rb.velocity.x) * -100 * Time.deltaTime);
+        }
+
         //flipping character based on input
         if (horizontal > 0)
         {
-            sprite.flipX = false;
+            gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
         else if (horizontal < 0){
-            sprite.flipX = true;
+            gameObject.transform.localScale = new Vector3(-1, 1, 1);
         }
 
         //accelerate via addforce, first two if statements are for capping speed at max
