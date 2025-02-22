@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f6d6c559e1e6a4096c57e7b0542662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Gren House
   amount: 50
   isPostOffice: 0
 --- !u!61 &7952214440820863338

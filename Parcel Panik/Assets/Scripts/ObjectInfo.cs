@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
  */
 public class ObjectInfo : MonoBehaviour
 {
+    [SerializeField] private string name;
     [SerializeField] private int amount;
     [SerializeField] private bool isPostOffice;
     // can include other variables like audio clips, animations, etc 
@@ -20,6 +21,12 @@ public class ObjectInfo : MonoBehaviour
 
     // Getters and setters 
     public string ObjectID { get; private set; }
+
+    public string Name
+    {
+        get => name;
+        set => name = value;
+    }
     public int Amount
     {
         get => amount;
