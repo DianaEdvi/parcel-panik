@@ -9,6 +9,7 @@ public class GameOver : MonoBehaviour
     private Events _eventHandler;
     private PackageCounterAndPay _packageCounterAndPay;
     private Timer _timer;
+    private bool gameEnded;
     
     // Start is called before the first frame update
     void Start()
@@ -23,9 +24,10 @@ public class GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_timer.TimeLeft == 0) // and already called 
+        if (_timer.TimeLeft == 0 && !gameEnded) // and already called 
         {
             _eventHandler.OnGameOver?.Invoke();
+            gameEnded = true;
         }
         
     }

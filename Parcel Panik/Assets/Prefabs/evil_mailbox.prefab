@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f6d6c559e1e6a4096c57e7b0542662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Pinky Mailbox
   amount: -10
   isPostOffice: 0
 --- !u!114 &5676126316570646088
