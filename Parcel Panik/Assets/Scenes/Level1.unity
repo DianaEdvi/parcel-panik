@@ -424,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4673935446630902597, guid: d00e05eecce1b944eafd770d04c3584b, type: 3}
       propertyPath: timeToDeliver
-      value: 12
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8723572635861941944, guid: d00e05eecce1b944eafd770d04c3584b, type: 3}
       propertyPath: m_Name
