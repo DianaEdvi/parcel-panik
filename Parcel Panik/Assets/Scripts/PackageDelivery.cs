@@ -20,6 +20,7 @@ public class PackageDelivery : MonoBehaviour
     // Check for Enter key press here
         if (!_isWithinBounds || !Input.GetKeyDown(KeyCode.Return) || _packageDelivered) return;
         Events.Instance.OnPackageDelivered?.Invoke(_objectInfo); // Fire event
+        GetComponent<AudioSource>().Play();
         _packageDelivered = true;
         mailSprite.enabled = false;
     }
@@ -46,4 +47,5 @@ public class PackageDelivery : MonoBehaviour
 
         _isWithinBounds = false; // Reset the flag when player exits trigger
     }
+    
 }

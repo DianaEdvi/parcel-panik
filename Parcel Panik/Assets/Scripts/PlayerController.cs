@@ -33,11 +33,15 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private AudioSource[] _audioSources;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        _audioSources = GetComponents<AudioSource>();
     }
 
     private void Update()
@@ -52,6 +56,20 @@ public class PlayerController : MonoBehaviour
         }
 
         horizontal = Input.GetAxis("Horizontal");
+        
+        if (horizontal != 0)
+        {
+            if (!_audioSources[0].isPlaying)  // Prevents overlapping audio
+            {
+                _audioSources[0].Play();
+            }
+        }
+        else
+        {
+            _audioSources[0].Stop();
+        }
+
+      
 
         horizontalSpeed = rb.velocity.x;
         verticalSpeed = rb.velocity.y;
@@ -120,19 +138,26 @@ public class PlayerController : MonoBehaviour
 
             rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
 
-        } else {
+        }    else {
+            // Check if braking
+            if ((horizontal > 0 && rb.velocity.x < 0) || (horizontal < 0 && rb.velocity.x > 0))
+            {
+                rb.AddForce(new Vector2(horizontal * braking, 0), ForceMode2D.Impulse);
 
-            //check if braking
-            if (horizontal > 0 && rb.velocity.x < 0)
-            {
-                rb.AddForce(new Vector2(horizontal * braking, 0), ForceMode2D.Impulse);
+                if (!_audioSources[1].isPlaying)  // Play braking sound if not already playing
+                {
+                    _audioSources[1].Play();
+                }
             }
-            else if (horizontal < 0 && rb.velocity.x > 0)
-            {
-                rb.AddForce(new Vector2(horizontal * braking, 0), ForceMode2D.Impulse);
-            }
-            else { 
-                //if not braking, use acceleration
+            else
+            { 
+                // Stop braking sound if player is no longer braking
+                if (_audioSources[1].isPlaying)
+                {
+                    _audioSources[1].Stop();
+                }
+
+                // If not braking, use acceleration
                 rb.AddForce(new Vector2(horizontal * acceleration, 0), ForceMode2D.Impulse);
             }
         }

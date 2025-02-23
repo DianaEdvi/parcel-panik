@@ -10,6 +10,7 @@ public class UndesirableObjectCollision : MonoBehaviour
     [SerializeField] private Sprite destroyedSprite; 
     private Events _eventHandler;
     private bool _isDestroyed;
+    private AudioSource _audioSource;
 
     // Start is called before the first frame update
     private void Start()
@@ -18,6 +19,7 @@ public class UndesirableObjectCollision : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _objectInfo = GetComponent<ObjectInfo>();
         _eventHandler = GameObject.Find("EventHandler").GetComponent<Events>();
+        _audioSource = GetComponent<AudioSource>();
         
         // Subscribe to event
         _eventHandler.OnUndesirableHit += ChangeSprite;
@@ -37,6 +39,9 @@ public class UndesirableObjectCollision : MonoBehaviour
         if (obj.ObjectID != _objectInfo.ObjectID) return; // Check if the delivered package was for this object
         _spriteRenderer.sprite = destroyedSprite;
         _isDestroyed = true;
+        
+        // Play audio
+        _audioSource.Play();
     }
     
 }
